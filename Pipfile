@@ -10,6 +10,8 @@ python-dotenv = "*"
 streamlit-option-menu = "*"
 matplotlib = "*"
 scikit-learn = "*"
+graphviz = "*"
+dtreeviz = "*"
 
 [dev-packages]
 
