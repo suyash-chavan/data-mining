@@ -78,7 +78,7 @@ def getMedian(dataframe):
 
 
 def getRange(dataframe):
-    return dataframe[0] - dataframe[len(dataframe) - 1]
+    return dataframe[len(dataframe) - 1] - dataframe[0]
 
 
 def getMidrange(dataframe):
@@ -446,11 +446,32 @@ def svg_write(svg, center=True):
     # Write the HTML
     streamlit.write(html, unsafe_allow_html=True)
 
+def tree_to_code(tree, feature_names):
+    tree_ = tree.tree_
+    feature_name = [
+        feature_names[i] if i != _tree.TREE_UNDEFINED else "undefined!"
+        for i in tree_.feature
+    ]
+    print("def tree({}):".format(", ".join(feature_names)))
+
+    def recurse(node, depth):
+        indent = "  " * depth
+        if tree_.feature[node] != _tree.TREE_UNDEFINED:
+            name = feature_name[node]
+            threshold = tree_.threshold[node]
+            print("{}if {} <= {}:".format(indent, name, threshold))
+            recurse(tree_.children_left[node], depth + 1)
+            print("{}else:  # if {} > {}".format(indent, name, threshold))
+            recurse(tree_.children_right[node], depth + 1)
+        else:
+            print("{}return {}".format(indent, tree_.value[node]))
+
+    recurse(0, 1)
+
 def decisiontree(dataframe):
     columns = list(dataframe.columns)
 
     targetAttr = columns[-1]
-    data = dataframe
     features = columns
     features.remove(targetAttr)
     x = dataframe[features]
@@ -481,6 +502,7 @@ def decisiontree(dataframe):
     feature_names=encoded_x_data.columns, class_names=classes)
 
     svg_write(viz.svg())
+    streamlit.write(decision_tree)
 
     streamlit.header("Gini Index")
     decision_tree = DecisionTreeClassifier(criterion="gini")
