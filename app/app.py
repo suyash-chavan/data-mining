@@ -7,7 +7,7 @@ import webbrowser
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn import *
+from sklearn import preprocessing,DecisionTreeClassifier,tree
 
 # import plotly.figure_factory as ff
 
