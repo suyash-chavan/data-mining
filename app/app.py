@@ -428,11 +428,11 @@ def normalisationAnalysis(dataframe):
 
 
 def decisiontree(dataframe):
-    colums = dataframe.columns
+    columns = list(dataframe.columns)
 
-    targetAttr = dataframe.columns[-1]
+    targetAttr = columns[-1]
     data = dataframe
-    features = list(colums)
+    features = columns
     features.remove(targetAttr)
     x = dataframe[features]
 
@@ -449,6 +449,9 @@ def decisiontree(dataframe):
     
     data.replace(map)
     y = dataframe[targetAttr]  # Target variable
+
+    streamlit.write(encoded_x_data)
+    streamlit.write(y)
 
     streamlit.header("Information Gain")
     # "leaves" (aka decision nodes) are where we get final output
