@@ -450,6 +450,9 @@ def decisiontree(dataframe):
     y = dataframe[targetAttr]  # Target variable
     y.replace(map)
 
+    streamlit.write(x)
+    streamlit.write(y)
+
     streamlit.header("Information Gain")
     # "leaves" (aka decision nodes) are where we get final output
     # root node is where the decision tree starts
