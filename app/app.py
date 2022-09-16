@@ -464,7 +464,7 @@ def decisiontree(dataframe):
     viz= dtreeviz(decision_tree, encoded_x_data, y, target_name=targetAttr,
     feature_names=encoded_x_data.columns, class_names=classes)
 
-    streamlit.graphviz_chart(viz)
+    streamlit.image(viz._repr_svg_(), use_column_width=True)
 
     streamlit.header("Gini Index")
     decision_tree = DecisionTreeClassifier(criterion="gini")
