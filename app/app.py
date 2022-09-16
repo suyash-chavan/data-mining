@@ -18,7 +18,7 @@ import math
 import base64
 import streamlit.components.v1 as components
 
-st.set_option('deprecation.showPyplotGlobalUse', False)
+streamlit.set_option('deprecation.showPyplotGlobalUse', False)
 
 # import plotly.figure_factory as ff
 
