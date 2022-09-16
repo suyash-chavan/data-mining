@@ -174,6 +174,7 @@ def descriptiveAnalysis(dataframe):
         streamlit.error("No numerical attribute to Analyse!")
     else:
         cols = streamlit.columns([1, 1, 1, 1])
+        dataframe = dataframe.sort_values(by=[attribute])
 
         cols[0].metric(
             "Range",
