@@ -461,9 +461,9 @@ def tree_to_code(tree, feature_names):
             name = feature_name[node]
             threshold = tree_.threshold[node]
             rules += ("\n" + ("{}if {} <= {}:".format(indent, name, threshold)))
-            recurse(tree_.children_left[node], depth + 1)
+            recurse(tree_.children_left[node], depth + 1,rules)
             rules = rules + "\n" + ("{}else:  # if {} > {}".format(indent, name, threshold))
-            recurse(tree_.children_right[node], depth + 1)
+            recurse(tree_.children_right[node], depth + 1,rules)
         else:
             rules += ("\n" + ("{}return {}".format(indent, tree_.value[node])))
 
