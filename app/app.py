@@ -440,7 +440,7 @@ def svg_write(svg, center=True):
     # Add some CSS on top
     css_justify = "center" if center else "left"
     css = f'<p style="text-align:center; display: flex; justify-content: {css_justify};">'
-    html = f'{css}<img src="data:image/svg+xml;base64,{b64}"/>'
+    html = f'{css}<img src="data:image/svg+xml;base64,{b64}" style="width: 80%;"/>'
 
     # Write the HTML
     streamlit.write(html, unsafe_allow_html=True)
