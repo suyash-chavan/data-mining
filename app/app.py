@@ -502,7 +502,8 @@ def decisiontree(dataframe):
     feature_names=encoded_x_data.columns, class_names=classes)
 
     svg_write(viz.svg())
-    streamlit.write(decision_tree)
+
+    streamlit.write(tree_to_code(decision_tree))
 
     streamlit.header("Gini Index")
     decision_tree = DecisionTreeClassifier(criterion="gini")
