@@ -16,6 +16,9 @@ import graphviz as graphviz
 from dtreeviz.trees import dtreeviz
 import math
 import base64
+import streamlit.components.v1 as components
+
+st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # import plotly.figure_factory as ff
 
