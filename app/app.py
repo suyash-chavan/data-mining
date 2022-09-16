@@ -7,7 +7,12 @@ import webbrowser
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn import preprocessing,DecisionTreeClassifier,tree
+from sklearn.tree import _tree
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix
+from sklearn.tree import DecisionTreeClassifier
+from sklearn import tree, preprocessing, metrics
+import math
 
 # import plotly.figure_factory as ff
 
