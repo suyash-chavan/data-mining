@@ -447,11 +447,8 @@ def decisiontree(dataframe):
         map[x] = cnt
         cnt = cnt+1 
     
-    data.replace(map)
     y = dataframe[targetAttr]  # Target variable
-
-    streamlit.write(encoded_x_data)
-    streamlit.write(y)
+    y.replace(map)
 
     streamlit.header("Information Gain")
     # "leaves" (aka decision nodes) are where we get final output
