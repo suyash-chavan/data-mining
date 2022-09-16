@@ -448,8 +448,8 @@ def decisiontree(dataframe):
     # Train Decision Tree Classifer
     decision_tree = decision_tree.fit(encoded_x_data, y)
 
-    viz= dtreeviz(decision_tree, x, y, target_name=targetAttr,
-    feature_names=features, class_names=dataframe[targetAttr].unique().tolist())
+    viz= dtreeviz(decision_tree, encoded_x_data, y, target_name=targetAttr,
+    feature_names=encoded_x_data.columns, class_names=dataframe[targetAttr].unique().tolist())
 
     streamlit.graphviz_chart(viz)
 
