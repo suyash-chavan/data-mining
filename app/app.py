@@ -430,12 +430,6 @@ def normalisationAnalysis(dataframe):
     streamlit.pyplot(plt)
     plt.clf()
 
-def st_dtree(viz, height=None):
-
-    dtree_html = f"<body>{viz.svg()}</body>"
-
-    components.html(dtree_html, height=height)
-
 def decisiontree(dataframe):
     columns = list(dataframe.columns)
 
@@ -459,9 +453,6 @@ def decisiontree(dataframe):
     y = dataframe[targetAttr]  # Target variable
     y = y.replace(map)
 
-    streamlit.write(x)
-    streamlit.write(y)
-
     streamlit.header("Information Gain")
     # "leaves" (aka decision nodes) are where we get final output
     # root node is where the decision tree starts
@@ -470,8 +461,10 @@ def decisiontree(dataframe):
     # Train Decision Tree Classifer
     decision_tree = decision_tree.fit(encoded_x_data, y)
 
-    st_dtree(dtreeviz(decision_tree, encoded_x_data, y, target_name=targetAttr,
-    feature_names=encoded_x_data.columns, class_names=classes))
+    viz = dtreeviz(decision_tree, encoded_x_data, y, target_name=targetAttr,
+    feature_names=encoded_x_data.columns, class_names=classes)
+
+    streamlit.image(viz._repr_svg_(), use_column_width=True)
 
     streamlit.header("Gini Index")
     decision_tree = DecisionTreeClassifier(criterion="gini")
