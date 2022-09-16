@@ -429,7 +429,6 @@ def decisiontree(dataframe):
     colums = dataframe.columns
 
     targetAttr = streamlit.sidebar.selectbox("Choose Target Attribute", colums)
-    streamlit.header("Decision Tree")
     data = dataframe
     features = list(colums)
     features.remove(targetAttr)
@@ -439,7 +438,7 @@ def decisiontree(dataframe):
     dataEncoder = preprocessing.LabelEncoder()
     encoded_x_data = x.apply(dataEncoder.fit_transform)
 
-    streamlit.header("1.Information Gain")
+    streamlit.header("Information Gain")
     # "leaves" (aka decision nodes) are where we get final output
     # root node is where the decision tree starts
     # Create Decision Tree classifer object
@@ -448,18 +447,18 @@ def decisiontree(dataframe):
     decision_tree = decision_tree.fit(encoded_x_data, y)
 
     # plot decision tree
-    fig, ax = plt.subplots(figsize=(6, 6))
+    fig, ax = plt.subplots(figsize=(600, 600))
     # figsize value changes the size of plot
     tree.plot_tree(decision_tree, ax=ax, feature_names=features)
     plt.show()
     streamlit.pyplot(plt)
 
-    streamlit.header("1.Gini Index")
+    streamlit.header("Gini Index")
     decision_tree = DecisionTreeClassifier(criterion="gini")
     # Train Decision Tree Classifer
     decision_tree = decision_tree.fit(encoded_x_data, y)
 
-    fig, ax = plt.subplots(figsize=(6, 6))
+    fig, ax = plt.subplots(figsize=(600, 600))
     tree.plot_tree(decision_tree, ax=ax, feature_names=features)
     plt.show()
     streamlit.pyplot(plt)
