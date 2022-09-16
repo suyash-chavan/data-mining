@@ -443,8 +443,8 @@ def decisiontree(dataframe):
 
     cnt = 1
 
-    for x in classes:
-        map[x] = cnt
+    for c in classes:
+        map[c] = cnt
         cnt = cnt+1 
     
     y = dataframe[targetAttr]  # Target variable
