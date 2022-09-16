@@ -521,7 +521,6 @@ with cols[2]:
         unsafe_allow_html=True,
     )
 
-
 # with cols[3]:
 #     streamlit.image(wceLogo, use_column_width='auto')
 streamlit.markdown("<hr />", unsafe_allow_html=True)
