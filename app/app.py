@@ -449,7 +449,7 @@ def decisiontree(dataframe):
     decision_tree = decision_tree.fit(encoded_x_data, y)
 
     viz= dtreeviz(decision_tree, x, y, target_name=targetAttr,
-    feature_names=features, class_names=dataframe[targetAttr].unique())
+    feature_names=features, class_names=dataframe[targetAttr].unique().tolist())
 
     streamlit.graphviz_chart(viz)
 
