@@ -12,6 +12,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 from sklearn.tree import DecisionTreeClassifier
 from sklearn import tree, preprocessing, metrics
+import graphviz as graphviz
+from dtreeviz.trees import dtreeviz
 import math
 
 # import plotly.figure_factory as ff
@@ -446,12 +448,10 @@ def decisiontree(dataframe):
     # Train Decision Tree Classifer
     decision_tree = decision_tree.fit(encoded_x_data, y)
 
-    # plot decision tree
-    fig, ax = plt.subplots(figsize=(6, 6))
-    # figsize value changes the size of plot
-    tree.plot_tree(decision_tree, ax=ax, feature_names=features)
-    plt.show()
-    streamlit.pyplot(plt)
+    viz= dtreeviz(decision_tree, x, y, target_name=targetAttr,
+    feature_names=features, class_names=dataframe[targetAttr].unique())
+
+    streamlit.graphviz_chart(viz)
 
     streamlit.header("Gini Index")
     decision_tree = DecisionTreeClassifier(criterion="gini")
