@@ -460,12 +460,12 @@ def tree_to_code(tree, feature_names):
         if tree_.feature[node] != _tree.TREE_UNDEFINED:
             name = feature_name[node]
             threshold = tree_.threshold[node]
-            streamlit.write("{}if {} <= {}:".format(indent, name, threshold)))
-            recurse(tree_.children_left[node], depth + 1,rules)
-            streamlit.write("{}else:  # if {} > {}".format(indent, name, threshold)))
-            recurse(tree_.children_right[node], depth + 1,rules)
+            streamlit.write("{}if {} <= {}:".format(indent, name, threshold))
+            recurse(tree_.children_left[node], depth + 1)
+            streamlit.write("{}else:  # if {} > {}".format(indent, name, threshold))
+            recurse(tree_.children_right[node], depth + 1)
         else:
-            streamlit.write("{}return {}".format(indent, tree_.value[node])))
+            streamlit.write("{}return {}".format(indent, tree_.value[node]))
 
     recurse(0, 1)
 
