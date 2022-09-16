@@ -78,7 +78,7 @@ def getMedian(dataframe):
 
 
 def getRange(dataframe):
-    return dataframe[len(dataframe) - 1] - dataframe[0]
+    return max(dataframe) - min(dataframe)
 
 
 def getMidrange(dataframe):
