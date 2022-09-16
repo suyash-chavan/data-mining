@@ -430,6 +430,21 @@ def normalisationAnalysis(dataframe):
     streamlit.pyplot(plt)
     plt.clf()
 
+def svg_write(svg, center=True):
+    """
+    Disable center to left-margin align like other objects.
+    """
+    # Encode as base 64
+    b64 = base64.b64encode(svg.encode("utf-8")).decode("utf-8")
+
+    # Add some CSS on top
+    css_justify = "center" if center else "left"
+    css = f'<p style="text-align:center; display: flex; justify-content: {css_justify};">'
+    html = f'{css}<img src="data:image/svg+xml;base64,{b64}"/>'
+
+    # Write the HTML
+    streamlit.write(html, unsafe_allow_html=True)
+
 def decisiontree(dataframe):
     columns = list(dataframe.columns)
 
@@ -464,7 +479,7 @@ def decisiontree(dataframe):
     viz = dtreeviz(decision_tree, encoded_x_data, y, target_name=targetAttr,
     feature_names=encoded_x_data.columns, class_names=classes)
 
-    streamlit.image(viz._repr_svg_(), use_column_width=True)
+    svg_write(viz.svg())
 
     streamlit.header("Gini Index")
     decision_tree = DecisionTreeClassifier(criterion="gini")
