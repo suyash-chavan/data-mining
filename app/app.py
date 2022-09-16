@@ -519,6 +519,8 @@ def decisiontree(dataframe):
     plt.show()
     streamlit.pyplot(plt)
 
+    streamlit.code("\n".join(tree_to_code(decision_tree, features)), language='python')
+
 
 ################# Streamlit Code Starts ####################
 
