@@ -435,10 +435,20 @@ def decisiontree(dataframe):
     features = list(colums)
     features.remove(targetAttr)
     x = dataframe[features]
-    y = dataframe[targetAttr]  # Target variable
 
     dataEncoder = preprocessing.LabelEncoder()
     encoded_x_data = x.apply(dataEncoder.fit_transform)
+    classes = dataframe[targetAttr].unique().tolist()
+    map = {}
+
+    cnt = 1
+
+    for x in classes:
+        map[x] = cnt
+        cnt = cnt+1 
+    
+    data.replace(map)
+    y = dataframe[targetAttr]  # Target variable
 
     streamlit.header("Information Gain")
     # "leaves" (aka decision nodes) are where we get final output
@@ -449,7 +459,7 @@ def decisiontree(dataframe):
     decision_tree = decision_tree.fit(encoded_x_data, y)
 
     viz= dtreeviz(decision_tree, encoded_x_data, y, target_name=targetAttr,
-    feature_names=encoded_x_data.columns, class_names=dataframe[targetAttr].unique().tolist())
+    feature_names=encoded_x_data.columns, class_names=classes)
 
     streamlit.graphviz_chart(viz)
 
