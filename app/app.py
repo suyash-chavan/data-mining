@@ -506,7 +506,7 @@ def decisiontree(dataframe):
 
     svg_write(viz.svg())
 
-    streamlit.code(tree_to_code(decision_tree, features).join('\n'), language='python')
+    streamlit.code("\n".join(tree_to_code(decision_tree, features)), language='python')
 
 
     streamlit.header("Gini Index")
