@@ -7,7 +7,7 @@ import webbrowser
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn import preprocessing
+from sklearn import *
 
 # import plotly.figure_factory as ff
 
