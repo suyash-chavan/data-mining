@@ -448,7 +448,7 @@ def decisiontree(dataframe):
         cnt = cnt+1 
     
     y = dataframe[targetAttr]  # Target variable
-    y.replace(map)
+    y = y.replace(map)
 
     streamlit.write(x)
     streamlit.write(y)
