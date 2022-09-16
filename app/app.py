@@ -456,7 +456,7 @@ def tree_to_code(tree, feature_names):
     rules = [("def tree({}):".format(", ".join(feature_names)))]
 
     def recurse(node, depth,rules):
-        indent = "\t" * depth
+        indent = "    " * depth
         if tree_.feature[node] != _tree.TREE_UNDEFINED:
             name = feature_name[node]
             threshold = tree_.threshold[node]
