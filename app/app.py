@@ -447,7 +447,7 @@ def decisiontree(dataframe):
     decision_tree = decision_tree.fit(encoded_x_data, y)
 
     # plot decision tree
-    fig, ax = plt.subplots(figsize=(600, 600))
+    fig, ax = plt.subplots(figsize=(6, 6))
     # figsize value changes the size of plot
     tree.plot_tree(decision_tree, ax=ax, feature_names=features)
     plt.show()
@@ -458,7 +458,7 @@ def decisiontree(dataframe):
     # Train Decision Tree Classifer
     decision_tree = decision_tree.fit(encoded_x_data, y)
 
-    fig, ax = plt.subplots(figsize=(600, 600))
+    fig, ax = plt.subplots(figsize=(6, 6))
     tree.plot_tree(decision_tree, ax=ax, feature_names=features)
     plt.show()
     streamlit.pyplot(plt)
