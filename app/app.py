@@ -453,23 +453,21 @@ def tree_to_code(tree, feature_names):
         for i in tree_.feature
     ]
 
-    rules = ("def tree({}):".format(", ".join(feature_names)))
+    streamlit.write("def tree({}):".format(", ".join(feature_names)))
 
-    def recurse(node, depth,rules):
+    def recurse(node, depth):
         indent = "  " * depth
         if tree_.feature[node] != _tree.TREE_UNDEFINED:
             name = feature_name[node]
             threshold = tree_.threshold[node]
-            rules += ("\n" + ("{}if {} <= {}:".format(indent, name, threshold)))
+            streamlit.write("{}if {} <= {}:".format(indent, name, threshold)))
             recurse(tree_.children_left[node], depth + 1,rules)
-            rules += ("\n" + ("{}else:  # if {} > {}".format(indent, name, threshold)))
+            streamlit.write("{}else:  # if {} > {}".format(indent, name, threshold)))
             recurse(tree_.children_right[node], depth + 1,rules)
         else:
-            rules += ("\n" + ("{}return {}".format(indent, tree_.value[node])))
+            streamlit.write("{}return {}".format(indent, tree_.value[node])))
 
-    recurse(0, 1, rules)
-
-    return rules
+    recurse(0, 1)
 
 def decisiontree(dataframe):
     columns = list(dataframe.columns)
@@ -506,7 +504,7 @@ def decisiontree(dataframe):
 
     svg_write(viz.svg())
 
-    streamlit.write(tree_to_code(decision_tree, features))
+    tree_to_code(decision_tree, features)
 
     streamlit.header("Gini Index")
     decision_tree = DecisionTreeClassifier(criterion="gini")
