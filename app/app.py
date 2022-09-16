@@ -428,7 +428,7 @@ def normalisationAnalysis(dataframe):
 def decisiontree(dataframe):
     colums = dataframe.columns
 
-    targetAttr = streamlit.sidebar.selectbox("Choose Target Attribute", colums)
+    targetAttr = streamlit.selectbox("Select Target Attribute", colums)
     data = dataframe
     features = list(colums)
     features.remove(targetAttr)
