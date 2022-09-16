@@ -455,20 +455,19 @@ def tree_to_code(tree, feature_names):
 
     rules = ("def tree({}):".format(", ".join(feature_names)))
 
-    def recurse(node, depth):
-        global rules
+    def recurse(node, depth,rules):
         indent = "  " * depth
         if tree_.feature[node] != _tree.TREE_UNDEFINED:
             name = feature_name[node]
             threshold = tree_.threshold[node]
-            rules = rules + "\n" + ("{}if {} <= {}:".format(indent, name, threshold))
+            rules += ("\n" + ("{}if {} <= {}:".format(indent, name, threshold)))
             recurse(tree_.children_left[node], depth + 1)
             rules = rules + "\n" + ("{}else:  # if {} > {}".format(indent, name, threshold))
             recurse(tree_.children_right[node], depth + 1)
         else:
-            rules = rules + "\n" + ("{}return {}".format(indent, tree_.value[node]))
+            rules += ("\n" + ("{}return {}".format(indent, tree_.value[node])))
 
-    recurse(0, 1)
+    recurse(0, 1, rules)
 
     return rules
 
