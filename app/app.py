@@ -303,7 +303,7 @@ def correlationAnalysis(dataframe):
         if pd.to_numeric(dataframe[attribute], errors="coerce").notnull().all() == True:
             options.append(attribute)
 
-    cols = streamlit.columns([1, 3])
+    cols = streamlit.columns([1, 1])
 
     cols[0].header("Chi Sqaure Test")
     att1 = cols[0].selectbox("Select first attribute", options)
