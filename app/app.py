@@ -82,7 +82,7 @@ def getRange(dataframe):
 
 
 def getMidrange(dataframe):
-    return getRange(dataframe) / 2
+    return ((max(dataframe) + min(dataframe))/ 2)
 
 
 def getVarience(dataframe):
