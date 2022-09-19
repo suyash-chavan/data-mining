@@ -18,7 +18,7 @@ import math
 import base64
 import streamlit.components.v1 as components
 
-streamlit.set_option('deprecation.showPyplotGlobalUse', False)
+streamlit.set_option("deprecation.showPyplotGlobalUse", False)
 
 # import plotly.figure_factory as ff
 
@@ -26,6 +26,7 @@ load_dotenv()
 
 
 ################ All functionalities ####################
+
 
 def getMean(dataframe):
 
@@ -82,7 +83,7 @@ def getRange(dataframe):
 
 
 def getMidrange(dataframe):
-    return ((max(dataframe) + min(dataframe))/ 2)
+    return (max(dataframe) + min(dataframe)) / 2
 
 
 def getVarience(dataframe):
@@ -431,6 +432,7 @@ def normalisationAnalysis(dataframe):
     streamlit.pyplot(plt)
     plt.clf()
 
+
 def svg_write(svg, center=True):
     """
     Disable center to left-margin align like other objects.
@@ -440,11 +442,14 @@ def svg_write(svg, center=True):
 
     # Add some CSS on top
     css_justify = "center" if center else "left"
-    css = f'<p style="text-align:center; display: flex; justify-content: {css_justify};">'
+    css = (
+        f'<p style="text-align:center; display: flex; justify-content: {css_justify};">'
+    )
     html = f'{css}<img src="data:image/svg+xml;base64,{b64}" style="width: 80%;"/>'
 
     # Write the HTML
     streamlit.write(html, unsafe_allow_html=True)
+
 
 def tree_to_code(tree, feature_names):
     tree_ = tree.tree_
@@ -455,21 +460,22 @@ def tree_to_code(tree, feature_names):
 
     rules = [("def tree({}):".format(", ".join(feature_names)))]
 
-    def recurse(node, depth,rules):
+    def recurse(node, depth, rules):
         indent = "    " * depth
         if tree_.feature[node] != _tree.TREE_UNDEFINED:
             name = feature_name[node]
             threshold = tree_.threshold[node]
             rules.append(("{}if {} <= {}:".format(indent, name, threshold)))
-            recurse(tree_.children_left[node], depth + 1,rules)
+            recurse(tree_.children_left[node], depth + 1, rules)
             rules.append("{}else:  # if {} > {}".format(indent, name, threshold))
-            recurse(tree_.children_right[node], depth + 1,rules)
+            recurse(tree_.children_right[node], depth + 1, rules)
         else:
             rules.append("{}return {}".format(indent, tree_.value[node]))
 
     recurse(0, 1, rules)
 
     return rules
+
 
 def decisiontree(dataframe):
     columns = list(dataframe.columns)
@@ -488,8 +494,8 @@ def decisiontree(dataframe):
 
     for c in classes:
         map[c] = cnt
-        cnt = cnt+1 
-    
+        cnt = cnt + 1
+
     y = dataframe[targetAttr]  # Target variable
     y = y.replace(map)
 
@@ -501,13 +507,18 @@ def decisiontree(dataframe):
     # Train Decision Tree Classifer
     decision_tree = decision_tree.fit(encoded_x_data, y)
 
-    viz = dtreeviz(decision_tree, encoded_x_data, y, target_name=targetAttr,
-    feature_names=encoded_x_data.columns, class_names=classes)
+    viz = dtreeviz(
+        decision_tree,
+        encoded_x_data,
+        y,
+        target_name=targetAttr,
+        feature_names=encoded_x_data.columns,
+        class_names=classes,
+    )
 
     svg_write(viz.svg())
 
-    streamlit.code("\n".join(tree_to_code(decision_tree, features)), language='python')
-
+    streamlit.code("\n".join(tree_to_code(decision_tree, features)), language="python")
 
     streamlit.header("Gini Index")
     decision_tree = DecisionTreeClassifier(criterion="gini")
@@ -519,7 +530,23 @@ def decisiontree(dataframe):
     plt.show()
     streamlit.pyplot(plt)
 
-    streamlit.code("\n".join(tree_to_code(decision_tree, features)), language='python')
+    streamlit.code("\n".join(tree_to_code(decision_tree, features)), language="python")
+
+
+def regression(dataframe):
+    pass
+
+
+def naiveBayesian(dataframe):
+    pass
+
+
+def knn(dataframe):
+    pass
+
+
+def ann(dataframe):
+    pass
 
 
 ################# Streamlit Code Starts ####################
@@ -657,11 +684,19 @@ if main_option == "Data Analysis":
 elif main_option == "Classifier":
     selected = option_menu(
         "",
-        ["Decision Tree", "Regression"],
-        icons=["diagram-2", "graph-up-arrow"],
+        ["Decision Tree", "Regression", "Naïve Bayesian", "k-NN", "ANN"],
+        icons=["diagram-2", "graph-up-arrow", "plus-slash-minus", "bezier", "robot"],
         orientation="horizontal",
         default_index=0,
     )
 
     if selected == "Decision Tree":
         decisiontree(dataframe)
+    elif selected == "Regression":
+        regression(dataframe)
+    elif selected == "Naïve Bayesian":
+        naiveBayesian(dataframe)
+    elif selected == "k-NN":
+        knn(dataframe)
+    elif selected == "ANN":
+        ann(dataframe)
